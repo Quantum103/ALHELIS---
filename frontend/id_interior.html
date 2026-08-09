@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ID INTERIOR — Design Studio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0F0F10;
+            --bg-secondary: #18191B;
+            --card: #18191B;
+            --card-hover: #252729;
+            --text-primary: #F5F1EA;
+            --text-secondary: #A89B8C;
+            --accent: #A78359;
+            --accent-hover: #D6B88A;
+            --border: rgba(245,241,234,0.12);
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--bg-primary);
+        }
+
+        /* ========== HEADER ========== */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 76px;
+            background: rgba(15, 15, 16, 0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            transition: var(--transition);
+        }
+
+        .header.scrolled {
+            background: rgba(15, 15, 16, 0.98);
+            box-shadow: 0 4px 30px rgba(0,0,0,0.4);
+        }
+
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo-sub {
+            font-size: 9px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .header-nav {
+            display: flex;
+            gap: 40px;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .header-nav a {
+            font-size: 12px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            position: relative;
+        }
+
+        .header-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+
+        .header-nav a:hover {
+            color: var(--text-primary);
+        }
+
+        .header-nav a:hover::after {
+            width: 100%;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .header-account {
+            font-size: 11px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .header-account:hover {
+            color: var(--accent);
+        }
+
+        .menu-btn {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 6px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 0;
+        }
+
+        .menu-btn span {
+            display: block;
+            width: 24px;
+            height: 1px;
+            background: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        .menu-btn.active span:first-child {
+            transform: rotate(45deg) translate(2.5px, 2.5px);
+        }
+
+        .menu-btn.active span:last-child {
+            transform: rotate(-45deg) translate(2.5px, -2.5px);
+        }
+
+        /* Mobile Drawer */
+        .mobile-drawer {
+            position: fixed;
+            top: 76px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--bg-primary);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+
+        .mobile-drawer.open {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .mobile-drawer a {
+            font-family: 'Playfair Display', serif;
+            font-size: 28px;
+            color: var(--text-primary);
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+
+        .mobile-drawer a:hover {
+            color: var(--accent);
+        }
+
+        .mobile-drawer .drawer-account {
+            margin-top: 20px;
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        /* ========== HERO ========== */
+        .hero {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 76px;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 0;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            filter: brightness(0.55);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, rgba(15,15,16,0.92) 0%, rgba(15,15,16,0.6) 50%, rgba(15,15,16,0.3) 100%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1400px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(36px, 5.5vw, 72px);
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--text-primary);
+            margin-bottom: 28px;
+            letter-spacing: 1px;
+        }
+
+        .hero-title span {
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(14px, 1.2vw, 18px);
+            color: var(--text-secondary);
+            max-width: 420px;
+            line-height: 1.7;
+            margin-bottom: 48px;
+            font-weight: 300;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px 40px;
+            border: 1px solid var(--accent);
+            color: var(--accent);
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: var(--transition);
+            background: transparent;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+        }
+
+        .btn-outline:hover {
+            background: var(--accent);
+            color: var(--bg-primary);
+            gap: 24px;
+        }
+
+        .btn-outline svg {
+            width: 18px;
+            height: 18px;
+            transition: var(--transition);
+        }
+
+        .btn-outline:hover svg {
+            transform: translateX(4px);
+        }
+
+        /* ========== SECTIONS COMMON ========== */
+        section {
+            position: relative;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+            font-weight: 500;
+        }
+
+        /* ========== DIRECTIONS ========== */
+        .directions {
+            padding: 120px 0;
+            background: var(--bg-primary);
+        }
+
+        .directions-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .direction-card {
+            position: relative;
+            height: 480px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: var(--transition);
+        }
+
+        .direction-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            filter: brightness(0.6);
+        }
+
+        .direction-card:hover img {
+            transform: scale(1.08);
+        }
+
+        .direction-card:hover {
+            border-color: var(--accent);
+        }
+
+        .direction-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 40px;
+            background: linear-gradient(transparent, rgba(15,15,16,0.95));
+            z-index: 2;
+        }
+
+        .direction-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 24px;
+            font-weight: 500;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            transition: var(--transition);
+        }
+
+        .direction-card p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            font-weight: 300;
+            transition: var(--transition);
+        }
+
+        .direction-card:hover h3,
+        .direction-card:hover p {
+            color: var(--accent-hover);
+        }
+
+        /* ========== PHILOSOPHY ========== */
+        .philosophy {
+            padding: 0;
+            background: var(--bg-secondary);
+        }
+
+        .philosophy-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+        }
+
+        .philosophy-image {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .philosophy-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: brightness(0.7);
+        }
+
+        .philosophy-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 60px;
+        }
+
+        .philosophy-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(28px, 3vw, 42px);
+            font-weight: 400;
+            line-height: 1.3;
+            margin-bottom: 24px;
+        }
+
+        .philosophy-content p {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.8;
+            font-weight: 300;
+            max-width: 460px;
+        }
+
+        .bronze-line {
+            width: 60px;
+            height: 2px;
+            background: var(--accent);
+            margin-top: 40px;
+        }
+
+        /* ========== STATS ========== */
+        .stats {
+            padding: 100px 0;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            text-align: center;
+        }
+
+        .stat-item {
+            padding: 20px 0;
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(48px, 5vw, 72px);
+            font-weight: 400;
+            color: var(--accent);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        /* ========== CTA ========== */
+        .cta {
+            padding: 140px 0;
+            background: var(--bg-secondary);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(167,131,89,0.03) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .cta h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(32px, 4vw, 56px);
+            font-weight: 400;
+            line-height: 1.2;
+            margin-bottom: 48px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta .btn-outline {
+            position: relative;
+            z-index: 1;
+            padding: 20px 48px;
+            font-size: 13px;
+        }
+
+        /* ========== FOOTER ========== */
+        .footer {
+            padding: 80px 0 40px;
+            background: var(--bg-primary);
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-inner {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 48px;
+            margin-bottom: 60px;
+        }
+
+        .footer-brand .logo {
+            font-size: 24px;
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+
+        .footer-brand p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            line-height: 1.7;
+            font-weight: 300;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 11px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 24px;
+            font-weight: 500;
+        }
+
+        .footer-col a {
+            display: block;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            margin-bottom: 14px;
+            transition: var(--transition);
+            font-weight: 300;
+        }
+
+        .footer-col a:hover {
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-bottom p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            letter-spacing: 1px;
+        }
+
+        /* ========== ANIMATIONS ========== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ========== RESPONSIVE ========== */
+        @media (max-width: 1024px) {
+            .header {
+                padding: 0 32px;
+            }
+            .header-nav {
+                display: none;
+            }
+            .header-account {
+                display: none;
+            }
+            .container {
+                padding: 0 32px;
+            }
+            .directions-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .philosophy-inner {
+                grid-template-columns: 1fr;
+            }
+            .philosophy-image {
+                min-height: 400px;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 0 20px;
+                height: 64px;
+            }
+            .mobile-drawer {
+                top: 64px;
+            }
+            .logo {
+                font-size: 18px;
+                letter-spacing: 2px;
+            }
+            .hero {
+                min-height: auto;
+                padding: 100px 0 60px;
+            }
+            .hero-content {
+                padding: 0 20px;
+                text-align: center;
+            }
+            .hero-overlay {
+                background: linear-gradient(180deg, rgba(15,15,16,0.88) 0%, rgba(15,15,16,0.7) 60%, rgba(15,15,16,0.5) 100%);
+            }
+            .hero-title {
+                font-size: clamp(28px, 8vw, 42px);
+            }
+            .hero-subtitle {
+                margin: 0 auto 40px;
+                font-size: 14px;
+            }
+            .btn-outline {
+                padding: 16px 32px;
+                font-size: 11px;
+            }
+            .container {
+                padding: 0 20px;
+            }
+            .directions {
+                padding: 80px 0;
+            }
+            .directions-grid {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .direction-card {
+                height: 360px;
+            }
+            .philosophy-content {
+                padding: 48px 24px;
+                text-align: center;
+            }
+            .philosophy-content p {
+                margin: 0 auto;
+            }
+            .bronze-line {
+                margin: 32px auto 0;
+            }
+            .stats {
+                padding: 60px 0;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .stat-number {
+                font-size: 56px;
+            }
+            .cta {
+                padding: 80px 20px;
+            }
+            .footer-inner {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 40px;
+            }
+            .footer-brand p {
+                margin: 0 auto;
+            }
+            .footer-bottom {
+                flex-direction: column;
+                gap: 12px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 32px;
+            }
+            .direction-card {
+                height: 300px;
+            }
+            .stat-number {
+                font-size: 48px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header class="header" id="header">
+        <div class="header-left">
+            <a href="#" class="logo">ID INTERIOR</a>
+            <span class="logo-sub">Design Studio</span>
+        </div>
+        <nav class="header-nav">
+            <a href="#projects">Проекты</a>
+            <a href="#philosophy">Философия</a>
+            <a href="#contacts">Контакты</a>
+        </nav>
+        <div class="header-right">
+            <a href="#" class="header-account">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
+                Личный кабинет
+            </a>
+            <button class="menu-btn" id="menuBtn" aria-label="Меню">
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- MOBILE DRAWER -->
+    <div class="mobile-drawer" id="mobileDrawer">
+        <a href="#projects" onclick="closeDrawer()">Проекты</a>
+        <a href="#philosophy" onclick="closeDrawer()">Философия</a>
+        <a href="#contacts" onclick="closeDrawer()">Контакты</a>
+        <a href="#" class="drawer-account" onclick="closeDrawer()">Личный кабинет</a>
+    </div>
+
+    <!-- HERO -->
+    <section class="hero" id="projects">
+        <div class="hero-bg">
+            <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=1920&q=80" alt="Luxury Interior" loading="eager">
+        </div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title fade-in">
+                <span>Создаём</span>
+                <span>пространства,</span>
+                <span>в которых хочется</span>
+                <span>жить</span>
+            </h1>
+            <p class="hero-subtitle fade-in">
+                Дизайн интерьера премиум-класса для жизни на высшем уровне.
+            </p>
+            <a href="#directions" class="btn-outline fade-in">
+                Смотреть проекты
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- DIRECTIONS -->
+    <section class="directions" id="directions">
+        <div class="container">
+            <p class="section-label fade-in">Выберите направление</p>
+            <div class="directions-grid">
+                <div class="direction-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80" alt="Премиум стиль" loading="lazy">
+                    <div class="direction-card-overlay">
+                        <h3>Премиум стиль</h3>
+                        <p>Элегантность и роскошь</p>
+                    </div>
+                </div>
+                <div class="direction-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&q=80" alt="Классический стиль" loading="lazy">
+                    <div class="direction-card-overlay">
+                        <h3>Классический стиль</h3>
+                        <p>Вне времени</p>
+                    </div>
+                </div>
+                <div class="direction-card fade-in">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80" alt="Современный стиль" loading="lazy">
+                    <div class="direction-card-overlay">
+                        <h3>Современный стиль</h3>
+                        <p>Простота и функциональность</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PHILOSOPHY -->
+    <section class="philosophy" id="philosophy">
+        <div class="philosophy-inner">
+            <div class="philosophy-image">
+                <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1200&q=80" alt="Interior Philosophy" loading="lazy">
+            </div>
+            <div class="philosophy-content fade-in">
+                <h2>Создаём пространства,<br>которые отражают вас.</h2>
+                <p>Мы проектируем интерьеры, в которых архитектура, материалы, свет и функциональность работают как единое целое.</p>
+                <div class="bronze-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item fade-in">
+                    <div class="stat-number">10+</div>
+                    <div class="stat-label">Лет опыта</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Реализованных проектов</div>
+                </div>
+                <div class="stat-item fade-in">
+                    <div class="stat-number">5</div>
+                    <div class="stat-label">Стран мира</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta">
+        <div class="container">
+            <h2 class="fade-in">Готовы создать<br>свой интерьер?</h2>
+            <a href="#contacts" class="btn-outline fade-in">
+                Обсудить проект
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer" id="contacts">
+        <div class="container">
+            <div class="footer-inner">
+                <div class="footer-brand">
+                    <a href="#" class="logo">ID INTERIOR</a>
+                    <p>Премиальный дизайн интерьеров для тех, кто ценит совершенство в деталях.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Навигация</h4>
+                    <a href="#projects">Проекты</a>
+                    <a href="#philosophy">Философия</a>
+                    <a href="#contacts">Контакты</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Контакты</h4>
+                    <a href="tel:+74951234567">+7 (495) 123-45-67</a>
+                    <a href="mailto:hello@idinterior.ru">hello@idinterior.ru</a>
+                    <a href="#">Москва</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Соцсети</h4>
+                    <a href="#">Instagram</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">Pinterest</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>© ID INTERIOR</p>
+                <p>Все права защищены</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile drawer
+        const menuBtn = document.getElementById('menuBtn');
+        const mobileDrawer = document.getElementById('mobileDrawer');
+        let drawerOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            drawerOpen = !drawerOpen;
+            menuBtn.classList.toggle('active', drawerOpen);
+            mobileDrawer.classList.toggle('open', drawerOpen);
+            document.body.style.overflow = drawerOpen ? 'hidden' : '';
+        });
+
+        function closeDrawer() {
+            drawerOpen = false;
+            menuBtn.classList.remove('active');
+            mobileDrawer.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        // Header scroll effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            header.classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                if (href === '#') return;
+                e.preventDefault();
+                const target = document.querySelector(href);
+                if (target) {
+                    const offset = 76;
+                    const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+                    window.scrollTo({ top, behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
