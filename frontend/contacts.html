@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Контакты — ID INTERIOR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0F0F10;--card:#18191B;--card2:#252729;--stone:#3A3A3C;--text:#F5F1EA;--muted:#A89B8C;--bronze:#A78359;--gold:#D6B88A;--line:rgba(255,255,255,.08);--serif:'Cormorant Garamond',serif;--sans:'Manrope',sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font:400 16px/1.75 var(--sans);-webkit-font-smoothing:antialiased}
+img{display:block;width:100%;height:100%;object-fit:cover}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--bronze);color:#0F0F10}
+.wrap{max-width:1280px;margin:0 auto;padding:0 40px}
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;border-bottom:1px solid transparent;transition:.4s}
+.hdr.scrolled{background:rgba(15,15,16,.88);backdrop-filter:blur(16px);border-color:var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:88px}
+.logo{font:600 20px var(--serif);letter-spacing:.14em}
+.logo b{color:var(--gold);font-weight:600}
+.menu{display:flex;align-items:center;gap:38px}
+.menu a{font:600 11px/1 var(--sans);letter-spacing:.22em;text-transform:uppercase;color:var(--muted);transition:.3s}
+.menu a:hover{color:var(--gold)}
+.menu a.act{color:var(--gold)}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:17px 30px;border:1px solid var(--bronze);color:var(--gold);font:700 11px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;background:none;cursor:pointer;transition:.35s}
+.btn:hover{background:var(--bronze);color:#0F0F10}
+.btn.solid{background:var(--gold);border-color:var(--gold);color:#0F0F10}
+.menu .btn{padding:13px 22px}
+.burger{display:none;flex-direction:column;gap:6px;background:none;border:0;cursor:pointer;z-index:120}
+.burger span{width:26px;height:1px;background:var(--gold);transition:.35s}
+.burger.x span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.x span:nth-child(2){opacity:0}
+.burger.x span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.rv{opacity:0;transform:translateY(30px);transition:opacity 1s,transform 1s}
+.rv.on{opacity:1;transform:none}
+.kick{font:700 11px/1 var(--sans);letter-spacing:.34em;text-transform:uppercase;color:var(--bronze);margin-bottom:22px}
+h1{font:500 clamp(44px,6vw,80px)/1.05 var(--serif)}
+em{font-style:italic;color:var(--gold)}
+.chead{padding:200px 0 70px}
+.cgrid{display:grid;grid-template-columns:1.2fr .8fr;gap:80px;padding-bottom:130px}
+.field{margin-bottom:34px}
+label{font:700 10px/1 var(--sans);letter-spacing:.24em;text-transform:uppercase;color:var(--muted)}
+.inp{width:100%;background:none;border:0;border-bottom:1px solid var(--stone);padding:14px 0;color:var(--text);font:400 15px var(--sans);outline:none;transition:.3s;margin-top:8px}
+.inp:focus{border-color:var(--gold)}
+textarea.inp{resize:vertical;min-height:110px}
+.ok{border:1px solid var(--bronze);padding:50px 40px;text-align:center}
+.ok h3{font:500 32px var(--serif);margin-bottom:12px}
+.ok p{color:var(--muted)}
+.info h3{font:500 26px var(--serif);margin-bottom:26px}
+.irow{border-top:1px solid var(--line);padding:22px 0}
+.irow b{display:block;font:700 10px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.irow a,.irow span{color:var(--text);font:500 20px var(--serif);transition:.3s}
+.irow a:hover{color:var(--gold)}
+.soc{display:flex;gap:22px;margin-top:26px}
+.soc a{font:600 11px/1 var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--muted);border-bottom:1px solid var(--stone);padding-bottom:6px;transition:.3s}
+.soc a:hover{color:var(--gold);border-color:var(--gold)}
+.ftr{border-top:1px solid var(--line);padding:80px 0 36px;background:var(--card)}
+.fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px}
+.fcol p{color:var(--muted);font-size:14px;max-width:300px;margin-top:16px}
+.fcol h5{font:700 11px/1 var(--sans);letter-spacing:.26em;text-transform:uppercase;color:var(--muted);margin-bottom:20px}
+.fcol a,.fcol span{display:block;color:var(--muted);font-size:14px;margin-bottom:12px;transition:.3s}
+.fcol a:hover{color:var(--gold)}
+.copy{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-top:64px;padding-top:28px;border-top:1px solid var(--line);color:#6d675f;font-size:12px;letter-spacing:.08em}
+@media(max-width:960px){.fgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:900px){.menu{position:fixed;inset:0;background:rgba(15,15,16,.97);flex-direction:column;justify-content:center;gap:30px;transform:translateY(-100%);transition:.5s}.menu.open{transform:none}.burger{display:flex}.wrap{padding:0 24px}.cgrid{grid-template-columns:1fr;gap:50px}}
+</style>
+</head>
+<body>
+<header class="hdr" id="hdr"><div class="wrap nav">
+  <a href="index.html" class="logo">ID <b>INTERIOR</b></a>
+  <nav class="menu" id="menu">
+    <a href="projects.html">Проекты</a>
+    <a href="philosophy.html">Философия</a>
+    <a class="act" href="contacts.html">Контакты</a>
+    <a class="btn" href="dashboard.html">Личный кабинет</a>
+  </nav>
+  <button class="burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+</div></header>
+
+<section class="chead"><div class="wrap">
+  <p class="kick rv on">Контакты</p>
+  <h1 class="rv on">Обсудим ваш <em>проект</em></h1>
+</div></section>
+
+<section class="wrap cgrid">
+  <div class="rv on">
+    <form id="form" novalidate>
+      <div class="field"><label for="f1">Ваше имя</label><input class="inp" id="f1" required placeholder="Александра"></div>
+      <div class="field"><label for="f2">Телефон</label><input class="inp" id="f2" type="tel" required placeholder="+7 ___ ___-__-__"></div>
+      <div class="field"><label for="f3">Email</label><input class="inp" id="f3" type="email" placeholder="you@example.com"></div>
+      <div class="field"><label for="f4">Расскажите о задаче</label><textarea class="inp" id="f4" placeholder="Квартира 140 м² в Москве, хотим премиум-стиль…"></textarea></div>
+      <button class="btn solid" type="submit">Отправить заявку →</button>
+    </form>
+  </div>
+  <div class="info rv on">
+    <h3>Студия</h3>
+    <div class="irow"><b>Телефон</b><a href="tel:+74951234567">+7 (495) 123-45-67</a></div>
+    <div class="irow"><b>Email</b><a href="mailto:hello@idinterior.ru">hello@idinterior.ru</a></div>
+    <div class="irow"><b>Шоурум</b><span>Москва, Пречистенка 24</span></div>
+    <div class="irow"><b>Часы</b><span>Пн–Пт, 10:00–19:00</span></div>
+    <div class="soc"><a href="#">Instagram</a><a href="#">Telegram</a><a href="#">Pinterest</a></div>
+  </div>
+</section>
+
+<footer class="ftr"><div class="wrap fgrid">
+  <div class="fcol"><a href="index.html" class="logo">ID <b>INTERIOR</b></a><p>Премиальный дизайн интерьеров для тех, кто ценит совершенство в деталях.</p></div>
+  <div class="fcol"><h5>Навигация</h5><a href="projects.html">Проекты</a><a href="philosophy.html">Философия</a><a href="contacts.html">Контакты</a><a href="dashboard.html">Личный кабинет</a></div>
+  <div class="fcol"><h5>Контакты</h5><a href="tel:+74951234567">+7 (495) 123-45-67</a><a href="mailto:hello@idinterior.ru">hello@idinterior.ru</a><span>Москва</span></div>
+  <div class="fcol"><h5>Соцсети</h5><a href="#">Instagram</a><a href="#">Telegram</a><a href="#">Pinterest</a></div>
+</div>
+<div class="wrap copy"><span>© 2026 ID INTERIOR</span><span>Все права защищены</span></div>
+</footer>
+
+<script>
+const hdr=document.getElementById('hdr');
+addEventListener('scroll',()=>hdr.classList.toggle('scrolled',scrollY>30));
+const burger=document.getElementById('burger'),menu=document.getElementById('menu');
+burger.addEventListener('click',()=>{menu.classList.toggle('open');burger.classList.toggle('x')});
+const io=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('on')),{threshold:.12});
+document.querySelectorAll('.rv').forEach(el=>io.observe(el));
+document.getElementById('form').addEventListener('submit',e=>{
+  e.preventDefault();
+  const n=document.getElementById('f1'),p=document.getElementById('f2');
+  if(!n.value.trim()||!p.value.trim()){( !n.value.trim()?n:p).focus();return}
+  e.target.outerHTML='<div class="ok"><h3>Заявка <em>отправлена</em></h3><p>Мы свяжемся с вами в течение рабочего дня.</p></div>';
+});
+</script>
+</body>
+</html>

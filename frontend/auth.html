@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0F0F10">
+<title>Вход — ID INTERIOR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/auth.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div class="nav">
+    <a href="index.html" class="logo">ID <b>INTERIOR</b></a>
+    <nav class="menu">
+      <a href="projects.html">Проекты</a>
+      <a href="philosophy.html">Философия</a>
+      <a href="contacts.html">Контакты</a>
+      <a href="dashboard.html">Кабинет</a>
+    </nav>
+  </div>
+</header>
+
+<div class="cursor-glow" id="cg"></div>
+
+<main class="shell">
+
+  <section class="left">
+    <div class="orb o1"></div>
+    <div class="orb o2"></div>
+    <div class="orb o3"></div>
+    <div class="particles" id="ptc"></div>
+
+    <p class="kick">Личный кабинет</p>
+    <h1>Ваше <em>пространство</em><br>начинается здесь.</h1>
+    <p class="sub">Доступ к активным проектам, визуализациям и прямой линии с дизайнером.</p>
+
+    <div class="meta">
+      <div><b>250+</b><span>Проектов</span></div>
+      <div><b>10+</b><span>Лет опыта</span></div>
+      <div><b>5</b><span>Стран мира</span></div>
+    </div>
+
+    <div class="back-home"><a href="index.html">← На главную</a></div>
+  </section>
+
+  <section class="right">
+    <div class="orbit-wrap">
+      <div class="orbit"></div>
+      <div class="orbit b"></div>
+    </div>
+
+    <div class="form-wrap">
+      <div class="form-card" id="card">
+
+        <div class="f-title">
+          <h2 id="fTitle">Добро <em>пожаловать</em></h2>
+          <p id="fSub">Войдите, чтобы продолжить</p>
+        </div>
+
+        <div class="switch" id="sw">
+          <button class="on" data-m="login">Вход</button>
+          <button data-m="register">Регистрация</button>
+          <span class="ind"></span>
+        </div>
+
+        <div class="forms" id="forms">
+
+          <form class="form" id="loginForm" novalidate>
+            <div class="field">
+              <input type="email" id="lEmail" placeholder=" " autocomplete="email">
+              <label for="lEmail">Email</label>
+              <span class="line"></span>
+              <span class="err-msg">Введите корректный email</span>
+            </div>
+
+            <div class="field">
+              <input type="password" id="lPwd" placeholder=" " autocomplete="current-password">
+              <label for="lPwd">Пароль</label>
+              <button type="button" class="pwd-toggle" data-for="lPwd">Показать</button>
+              <span class="line"></span>
+              <span class="err-msg">Минимум 6 символов</span>
+            </div>
+
+            <div class="row">
+              <label class="check"><input type="checkbox" checked><span class="box"></span>Запомнить</label>
+              <a href="#" class="link">Забыли пароль?</a>
+            </div>
+
+            <button type="submit" class="submit" id="lSub">Войти →</button>
+          </form>
+
+          <form class="form hidden" id="regForm" novalidate>
+            <div class="field">
+              <input type="text" id="rName" placeholder=" " autocomplete="name">
+              <label for="rName">Имя</label>
+              <span class="line"></span>
+              <span class="err-msg">Укажите имя</span>
+            </div>
+
+            <div class="field">
+              <input type="email" id="rEmail" placeholder=" " autocomplete="email">
+              <label for="rEmail">Email</label>
+              <span class="line"></span>
+              <span class="err-msg">Введите корректный email</span>
+            </div>
+
+            <div class="field">
+              <input type="password" id="rPwd" placeholder=" " autocomplete="new-password">
+              <label for="rPwd">Пароль</label>
+              <button type="button" class="pwd-toggle" data-for="rPwd">Показать</button>
+              <span class="line"></span>
+              <span class="err-msg">Минимум 6 символов</span>
+            </div>
+            <div class="strength" id="str"><i></i><i></i><i></i><i></i></div>
+            <p class="pwd-hint" id="hint">Введите пароль</p>
+
+            <div class="field" style="margin-top:22px">
+              <input type="password" id="rPwd2" placeholder=" " autocomplete="new-password">
+              <label for="rPwd2">Подтверждение</label>
+              <button type="button" class="pwd-toggle" data-for="rPwd2">Показать</button>
+              <span class="line"></span>
+              <span class="err-msg">Пароли не совпадают</span>
+            </div>
+
+            <div class="row">
+              <label class="check"><input type="checkbox" id="agree"><span class="box"></span>Принимаю условия</label>
+              <a href="#" class="link">Условия</a>
+            </div>
+
+            <button type="submit" class="submit" id="rSub">Создать аккаунт →</button>
+
+            <p class="terms">Регистрируясь, вы соглашаетесь с <a href="#">политикой</a>.</p>
+          </form>
+
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script src="static/js/auth.js"></script>
+</body>
+</html>

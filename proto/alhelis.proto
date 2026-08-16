@@ -1,4 +1,87 @@
-syntax = "proto3"
-package alhelis
+syntax = "proto3";
 
-option go_package 
+package alhelis;
+
+option go_package = "auth-servi/proto";
+
+service AlhelisService {
+    rpc ListService(ListServiceRequest) returns (ListServiceResponse);
+    rpc GetService(GetServiceRequest) returns (GetServiceResponse);
+    rpc Register(RegisterRequest) returns (RegisterResponse);
+    rpc Login(LoginRequest) returns (LoginResponse);
+    rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+    rpc ListMyOrders(ListMyOrdersRequest) returns (ListMyOrdersResponse);
+}
+
+
+message Service {
+    string id = 1;
+    string title = 2;
+    string description = 3;
+    double price_from = 4;  
+    string image_url = 5;
+}
+
+message ListServiceRequest {}
+
+message ListServiceResponse {
+    repeated Service services = 1;
+}
+
+message GetServiceRequest {
+    string id = 1;
+}
+
+message GetServiceResponse {
+    Service service = 1;
+}
+
+message RegisterRequest {
+    string email = 1;
+    string password = 2;
+    string name = 3;
+    string phone = 4;
+}
+
+message RegisterResponse {
+    string user_id = 1;
+    string message = 2;
+}
+
+message LoginRequest {
+    string email = 1;
+    string password = 2;
+}
+
+message LoginResponse {
+    string token = 1;
+    string user_id = 2;
+}
+
+message CreateOrderRequest {
+    string service_id = 1;
+    string description = 2;
+    double area = 3;
+    // на случай пустого пользователя
+    string guest_name = 4;
+    string guest_email = 5;
+    string guest_phone = 6;
+}
+
+message CreateOrderResponse {
+    Order order = 1;
+}
+
+message Order {
+    string id = 1;
+    string status = 2;
+    string service_title = 3;
+    string description = 4;
+    int64 created_at = 5;
+}
+
+message ListMyOrdersRequest {}
+
+message ListMyOrdersResponse {
+    repeated Order orders = 1;  
+}

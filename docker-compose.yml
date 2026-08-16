@@ -1,0 +1,19 @@
+services:
+  gateway:
+    build: ./gateway
+    ports:
+      - "8080:80"
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
+    depends_on:
+      - user-service
+      - auth-service
+
+  user-service:
+    build: ./user-service
+    expose:
+      - "8082"
+  auth-service:
+    build: ./auth-service
+    expose:
+      - "8081"
