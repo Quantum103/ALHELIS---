@@ -69,16 +69,18 @@
 
         <div class="forms" id="forms">
 
+          <!-- ФОРМА ВХОДА -->
           <form class="form" id="loginForm" novalidate>
             <div class="field">
-              <input type="email" id="lEmail" placeholder=" " autocomplete="email">
-              <label for="lEmail">Email</label>
+              <!-- ИЗМЕНЕНО: type="text", id="lUsername", name="username" -->
+              <input type="text" id="lUsername" name="username" placeholder=" " autocomplete="username">
+              <label for="lUsername">Логин</label>
               <span class="line"></span>
-              <span class="err-msg">Введите корректный email</span>
+              <span class="err-msg">Введите логин</span>
             </div>
 
             <div class="field">
-              <input type="password" id="lPwd" placeholder=" " autocomplete="current-password">
+              <input type="password" id="lPwd" name="password" placeholder=" " autocomplete="current-password">
               <label for="lPwd">Пароль</label>
               <button type="button" class="pwd-toggle" data-for="lPwd">Показать</button>
               <span class="line"></span>
@@ -86,30 +88,31 @@
             </div>
 
             <div class="row">
-              <label class="check"><input type="checkbox" checked><span class="box"></span>Запомнить</label>
+              <label class="check"><input type="checkbox" name="remember" checked><span class="box"></span>Запомнить</label>
               <a href="#" class="link">Забыли пароль?</a>
             </div>
 
             <button type="submit" class="submit" id="lSub">Войти →</button>
           </form>
 
+          <!-- ФОРМА РЕГИСТРАЦИИ -->
           <form class="form hidden" id="regForm" novalidate>
             <div class="field">
-              <input type="text" id="rName" placeholder=" " autocomplete="name">
+              <input type="text" id="rName" name="name" placeholder=" " autocomplete="name">
               <label for="rName">Имя</label>
               <span class="line"></span>
               <span class="err-msg">Укажите имя</span>
             </div>
 
             <div class="field">
-              <input type="email" id="rEmail" placeholder=" " autocomplete="email">
+              <input type="email" id="rEmail" name="email" placeholder=" " autocomplete="email">
               <label for="rEmail">Email</label>
               <span class="line"></span>
               <span class="err-msg">Введите корректный email</span>
             </div>
 
             <div class="field">
-              <input type="password" id="rPwd" placeholder=" " autocomplete="new-password">
+              <input type="password" id="rPwd" name="password" placeholder=" " autocomplete="new-password">
               <label for="rPwd">Пароль</label>
               <button type="button" class="pwd-toggle" data-for="rPwd">Показать</button>
               <span class="line"></span>
@@ -119,7 +122,7 @@
             <p class="pwd-hint" id="hint">Введите пароль</p>
 
             <div class="field" style="margin-top:22px">
-              <input type="password" id="rPwd2" placeholder=" " autocomplete="new-password">
+              <input type="password" id="rPwd2" name="password_confirmation" placeholder=" " autocomplete="new-password">
               <label for="rPwd2">Подтверждение</label>
               <button type="button" class="pwd-toggle" data-for="rPwd2">Показать</button>
               <span class="line"></span>
@@ -127,7 +130,7 @@
             </div>
 
             <div class="row">
-              <label class="check"><input type="checkbox" id="agree"><span class="box"></span>Принимаю условия</label>
+              <label class="check"><input type="checkbox" id="agree" name="agree"><span class="box"></span>Принимаю условия</label>
               <a href="#" class="link">Условия</a>
             </div>
 

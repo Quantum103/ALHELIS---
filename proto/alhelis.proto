@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package alhelis;
 
-option go_package = "auth-servi/proto";
+option go_package = "amelli/proto;alhelis";
 
 service AlhelisService {
     rpc ListService(ListServiceRequest) returns (ListServiceResponse);
